@@ -1,6 +1,7 @@
+
 # Verification matrix
 
-The original local Linux verification was executed on 29 October 2026. Compiler and platform details for that run are in `evidence/environment.json`. A separate Windows 11 / Ubuntu 24.04 WSL2 verification was completed on the same date and is documented below. Results are based on recorded execution, not inferred from code inspection.
+The original local Linux verification was executed on 29 October 2026. Compiler and platform details for that run are in [`environment.json`](environment.json). A separate Windows 11 / Ubuntu 24.04 WSL2 verification was completed on the same date and is documented below. Results are based on recorded execution, not inferred from code inspection.
 
 | Configuration or experiment | Result | Evidence |
 |---|---|---|
@@ -16,8 +17,8 @@ The original local Linux verification was executed on 29 October 2026. Compiler 
 | Audit negative controls (original Linux run) | PASS, six alterations detected; original records preserved | `negative-controls/*.json` |
 | `run_all.sh` (original Linux run) | PASS, including build, tests and experiment runner | `run_all.log` |
 | Fresh ZIP extraction build and CTest (original Linux run) | PASS, 17/17 | `package_configure.log`, `package_build.log`, `package_ctest.log` |
-| Windows 11 / Ubuntu 24.04 WSL2 launch and run | **PASS**: local CMake build, 17/17 CTest, 18 matched runs and five fault runs | `WSL2_REPORT_2026-10-29.md`; WSL2 verification section below |
-| Hosted GitHub Actions | **RUN STATUS UNVERIFIED**: workflow is published in the GitHub repository; no hosted pass/fail has yet been confirmed in this report | `.github/workflows/ci.yml`; check repository **Actions** tab |
+| Windows 11 / Ubuntu 24.04 WSL2 launch and run | **PASS**: local CMake build, 17/17 CTest, 18 matched runs and five fault runs | [`WSL2_REPORT_2026-10-29.md`](WSL2_REPORT_2026-10-29.md); WSL2 verification section below |
+| Hosted GitHub Actions — run #2 | **PASS**: Release 17/17, ASan 17/17, TSan 17/17; Release Python experiment runner completed | [Successful GitHub Actions run #2](https://github.com/yusufthecoder474/LabLine-Morphle-AIT/actions/runs/40851037411) |
 | Physical hardware integration | NOT IMPLEMENTED | Software simulation only |
 
 ## Exact test names
@@ -61,4 +62,10 @@ No sanitizer suppressions or leak-detection workarounds were used in the origina
 - **100-job mean p95 job latency:** 312.25 ms with one worker versus 245.35 ms with four workers.
 - **Captured report:** [`WSL2_REPORT_2026-10-29.md`](WSL2_REPORT_2026-10-29.md).
 
-These WSL2 measurements are distinct from the earlier Linux run; timings can differ across hosts and scheduling conditions. The WSL2 run shown here does **not** establish new ASan/UBSan/TSan results. Hosted GitHub Actions results must be checked separately before any CI pass claim. No physical hardware, clinical validation or hard real-time guarantee is claimed.
+These WSL2 measurements are distinct from the earlier Linux run; timings can differ across hosts and scheduling conditions. The WSL2 run does **not** establish new local ASan/UBSan/TSan results.
+
+## Hosted GitHub Actions verification — 29 October 2026
+
+[GitHub Actions run #2](https://github.com/yusufthecoder474/LabLine-Morphle-AIT/actions/runs/40851037411) completed successfully on Ubuntu 24.04. The Release, ASan and TSan build/test jobs each passed 17/17 CTest cases, and the Release Python experiment runner completed successfully. These are hosted results for the workflow's checked-in configurations and are separate from the earlier local LeakSanitizer-blocked attempt.
+
+The original local ASan+UBSan runtime limitation remains documented above. No physical hardware integration, clinical validation, or hard real-time guarantee is claimed.
