@@ -18,7 +18,7 @@ bash scripts/run_all.sh
 
 This builds, runs 17 CTest cases and executes 23 measured runs: 18 paired serial/concurrent workloads plus five fault/boundary scenarios. It writes a fresh timestamped evidence folder and prints its report location. No Python packages are needed.
 
-**Included captured results:** [verification matrix](evidence/VERIFICATION.md), [experiment report](evidence/REPORT.md), [raw results](evidence/results.csv). These are local Linux results; a checked-in CI workflow is not a hosted CI pass.
+**Included captured results:** [verification matrix](evidence/VERIFICATION.md), [experiment report](evidence/REPORT.md), [raw results](evidence/results.csv). These are local Linux results; **Included captured results:** [Verification matrix](evidence/VERIFICATION.md), [Original Linux report](evidence/REPORT.md), [WSL2 experiment report](evidence/WSL2_REPORT_2026-10-29.md), and [raw results](evidence/results.csv).  ## GitHub Actions — Verified 29 October 2026  LabLine passed its GitHub-hosted Ubuntu 24.04 CI workflow.  | Verification | Result | |---|---| | Release build and CTest | PASS — 17/17 | | AddressSanitizer build and CTest | PASS — 17/17 | | ThreadSanitizer build and CTest | PASS — 17/17 | | Release experiment runner | PASS | | Overall GitHub Actions workflow | SUCCESS |  [View successful GitHub Actions run #2](https://github.com/yusufthecoder474/LabLine-Morphle-AIT/actions/runs/40851037411)  Independent Windows 11 / Ubuntu 24.04 WSL2 execution also passed 17/17 tests and completed 960/960 normal jobs across 18 matched experiment runs.  The original local ASan/UBSan test attempt was blocked by LeakSanitizer runtime errors. That historical limitation is preserved in the verification report; the separate GitHub-hosted ASan configuration passed.
 
 ## What is worth demonstrating
 
@@ -65,7 +65,7 @@ ctest --test-dir build --output-on-failure
 bash scripts/run_all.sh
 ```
 
-These commands assume the ZIP keeps its supplied filename and is in the default Downloads folder. For a redirected Downloads folder, unzip it in Windows and copy the extracted `labline` folder to your Ubuntu home. Windows/WSL2 launch itself was **not executed** in this Linux environment.
+These commands assume the ZIP keeps its supplied filename and is in the default Downloads folder. For a redirected Downloads folder, unzip it in Windows and copy the extracted `labline` folder to your Ubuntu home. Windows 11 / Ubuntu 24.04 WSL2 execution was verified on 29 October 2026 using GCC 13.3.0 and Python 3.12.3. The complete results are documented in [evidence/WSL2_REPORT_2026-10-29.md](evidence/WSL2_REPORT_2026-10-29.md). **not executed** in this Linux environment.
 
 View the included report with `cat evidence/REPORT.md`. Run `explorer.exe .` from Ubuntu to open this directory in Windows; open Markdown in VS Code and CSV in Excel. The experiment folder contains each run's `events.csv`, `simulator.csv`, `jobs.csv`, `summary.csv`, audit result and command metadata.
 
