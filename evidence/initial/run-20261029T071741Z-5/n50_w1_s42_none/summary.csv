@@ -1,0 +1,2 @@
+run_id,jobs,workers,seed,fault,done,failed,unknown,duration_ms,throughput,mean_ms,median_ms,p95_ms,p99_ms,p95_ipc_ms,jitter_ms,p95_queue_ms,deadline_ms,deadline_misses,retries,crc_rejects
+n50_w1_s42_none,50,1,42,none,50,0,0,1348.4215,37.0804,245.4861,269.5916,272.8493,273.0158,7.7893,1.5554,247.8256,200,43,0,0

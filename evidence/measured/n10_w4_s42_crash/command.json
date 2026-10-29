@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/scratch/2e8b99d1cd97/labline/build/labline",
+    "--jobs",
+    "10",
+    "--workers",
+    "4",
+    "--seed",
+    "42",
+    "--fault",
+    "crash",
+    "--out",
+    "/workspace/scratch/2e8b99d1cd97/labline/evidence/run-20261029T072406Z-6/n10_w4_s42_crash",
+    "--run-id",
+    "n10_w4_s42_crash"
+  ],
+  "utc": "2026-10-29T07:24:27.212471+00:00",
+  "exit_code": 2
+}

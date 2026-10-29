@@ -1,0 +1,39 @@
+Test project /workspace/scratch/2e8b99d1cd97/labline/build-debug
+      Start  1: unit_roundtrip
+ 1/17 Test  #1: unit_roundtrip ...................   Passed    0.00 sec
+      Start  2: unit_split_multiple
+ 2/17 Test  #2: unit_split_multiple ..............   Passed    0.00 sec
+      Start  3: unit_crc
+ 3/17 Test  #3: unit_crc .........................   Passed    0.00 sec
+      Start  4: unit_length
+ 4/17 Test  #4: unit_length ......................   Passed    0.00 sec
+      Start  5: unit_version
+ 5/17 Test  #5: unit_version .....................   Passed    0.00 sec
+      Start  6: unit_state
+ 6/17 Test  #6: unit_state .......................   Passed    0.00 sec
+      Start  7: unit_queue
+ 7/17 Test  #7: unit_queue .......................   Passed    0.00 sec
+      Start  8: integration_concurrency
+ 8/17 Test  #8: integration_concurrency ..........   Passed    0.19 sec
+      Start  9: integration_ack
+ 9/17 Test  #9: integration_ack ..................   Passed    0.19 sec
+      Start 10: integration_crc
+10/17 Test #10: integration_crc ..................   Passed    0.19 sec
+      Start 11: integration_slow
+11/17 Test #11: integration_slow .................   Passed    0.79 sec
+      Start 12: integration_crash
+12/17 Test #12: integration_crash ................   Passed    0.04 sec
+      Start 13: integration_timeout
+13/17 Test #13: integration_timeout ..............   Passed    0.29 sec
+      Start 14: integration_repeat
+14/17 Test #14: integration_repeat ...............   Passed    0.34 sec
+      Start 15: integration_audit
+15/17 Test #15: integration_audit ................   Passed    0.19 sec
+      Start 16: integration_deadlock
+16/17 Test #16: integration_deadlock .............   Passed    1.04 sec
+      Start 17: simulator_input_safety
+17/17 Test #17: simulator_input_safety ...........   Passed    0.04 sec
+
+100% tests passed out of 17
+
+Total Test time (real) =   3.33 sec

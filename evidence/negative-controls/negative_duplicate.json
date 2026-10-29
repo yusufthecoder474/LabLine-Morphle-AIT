@@ -1,0 +1,14 @@
+{
+  "accepted": 10,
+  "done": 10,
+  "failed": 0,
+  "unknown": 0,
+  "anomalies": 4,
+  "errors": [
+    "line 152: out-of-order monotonic timestamp",
+    "line 152: event after terminal outcome",
+    "line 152: duplicate terminal completion",
+    "job 1: unfinished or duplicate terminal accepted job"
+  ],
+  "interpretation": "Missing audit evidence is not proof that a simulated action was skipped."
+}

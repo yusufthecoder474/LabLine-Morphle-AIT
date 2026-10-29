@@ -1,0 +1,29 @@
+name: LabLine Linux verification
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [release, asan, tsan]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        shell: bash
+        run: |
+          args=(-DCMAKE_BUILD_TYPE=Release)
+          if [[ '${{ matrix.mode }}' == asan ]]; then args=(-DCMAKE_BUILD_TYPE=Debug -DLABLINE_ASAN=ON); fi
+          if [[ '${{ matrix.mode }}' == tsan ]]; then args=(-DCMAKE_BUILD_TYPE=Debug -DLABLINE_TSAN=ON); fi
+          cmake -S . -B build "${args[@]}"
+      - run: cmake --build build --parallel 4
+      - run: ctest --test-dir build --output-on-failure
+      - if: matrix.mode == 'release'
+        run: python3 python/run_experiments.py --output evidence/ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-${{ matrix.mode }}
+          path: |
+            build/Testing/Temporary/
+            evidence/ci/

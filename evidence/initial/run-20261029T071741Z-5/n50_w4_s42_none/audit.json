@@ -1,0 +1,9 @@
+{
+  "accepted": 50,
+  "done": 50,
+  "failed": 0,
+  "unknown": 0,
+  "anomalies": 0,
+  "errors": [],
+  "interpretation": "Missing audit evidence is not proof that a simulated action was skipped."
+}

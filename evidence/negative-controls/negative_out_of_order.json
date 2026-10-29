@@ -1,0 +1,13 @@
+{
+  "accepted": 10,
+  "done": 10,
+  "failed": 0,
+  "unknown": 0,
+  "anomalies": 3,
+  "errors": [
+    "line 15: missing or out-of-order transition: expected STAINED; recorded IMAGED; execution unproven",
+    "line 15: transition without confirmed command ACK",
+    "line 23: missing or out-of-order transition: expected DONE; recorded HEATED; execution unproven"
+  ],
+  "interpretation": "Missing audit evidence is not proof that a simulated action was skipped."
+}

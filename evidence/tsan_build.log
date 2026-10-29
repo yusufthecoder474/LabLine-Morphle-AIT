@@ -1,0 +1,11 @@
+[ 12%] Built target deadlock_demo
+[ 25%] Built target unsafe_race_demo
+[ 31%] Building CXX object CMakeFiles/labline_core.dir/src/controller.cpp.o
+[ 37%] Linking CXX static library liblabline_core.a
+[ 62%] Built target labline_core
+[ 75%] Linking CXX executable labline
+[ 75%] Linking CXX executable unit_tests
+[ 81%] Linking CXX executable simulator_probe
+[ 87%] Built target unit_tests
+[ 93%] Built target simulator_probe
+[100%] Built target labline

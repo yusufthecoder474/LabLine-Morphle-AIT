@@ -1,0 +1,157 @@
+UpdateCTestConfiguration  from :/workspace/scratch/2e8b99d1cd97/labline/build/DartConfiguration.tcl
+Test project /workspace/scratch/2e8b99d1cd97/labline/build
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+      Start  1: unit_roundtrip
+
+1: Test command: /workspace/scratch/2e8b99d1cd97/labline/build/unit_tests "roundtrip"
+1: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+1: Test timeout computed to be: 30
+1: roundtrip PASS
+ 1/17 Test  #1: unit_roundtrip ...................   Passed    0.00 sec
+test 2
+      Start  2: unit_split_multiple
+
+2: Test command: /workspace/scratch/2e8b99d1cd97/labline/build/unit_tests "split_multiple"
+2: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+2: Test timeout computed to be: 30
+2: split_multiple PASS
+ 2/17 Test  #2: unit_split_multiple ..............   Passed    0.00 sec
+test 3
+      Start  3: unit_crc
+
+3: Test command: /workspace/scratch/2e8b99d1cd97/labline/build/unit_tests "crc"
+3: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+3: Test timeout computed to be: 30
+3: crc PASS
+ 3/17 Test  #3: unit_crc .........................   Passed    0.00 sec
+test 4
+      Start  4: unit_length
+
+4: Test command: /workspace/scratch/2e8b99d1cd97/labline/build/unit_tests "length"
+4: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+4: Test timeout computed to be: 30
+4: length PASS
+ 4/17 Test  #4: unit_length ......................   Passed    0.00 sec
+test 5
+      Start  5: unit_version
+
+5: Test command: /workspace/scratch/2e8b99d1cd97/labline/build/unit_tests "version"
+5: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+5: Test timeout computed to be: 30
+5: version PASS
+ 5/17 Test  #5: unit_version .....................   Passed    0.00 sec
+test 6
+      Start  6: unit_state
+
+6: Test command: /workspace/scratch/2e8b99d1cd97/labline/build/unit_tests "state"
+6: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+6: Test timeout computed to be: 30
+6: state PASS
+ 6/17 Test  #6: unit_state .......................   Passed    0.00 sec
+test 7
+      Start  7: unit_queue
+
+7: Test command: /workspace/scratch/2e8b99d1cd97/labline/build/unit_tests "queue"
+7: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+7: Test timeout computed to be: 30
+7: queue PASS
+ 7/17 Test  #7: unit_queue .......................   Passed    0.00 sec
+test 8
+      Start  8: integration_concurrency
+
+8: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "concurrency"
+8: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+8: Test timeout computed to be: 30
+8: {"test": "concurrency", "overlap": 3, "completed_actions": 40, "summary": {"run_id": "none", "jobs": "10", "workers": "4", "seed": "42", "fault": "none", "done": "10", "failed": "0", "unknown": "0", "duration_ms": "148.8817", "throughput": "67.1674", "mean_ms": "86.9292", "median_ms": "79.5960", "p95_ms": "146.5450", "p99_ms": "146.5450", "p95_ipc_ms": "7.6668", "jitter_ms": "1.5255", "p95_queue_ms": "90.2650", "deadline_ms": "200", "deadline_misses": "0", "retries": "0", "crc_rejects": "0"}}
+8: concurrency PASS
+ 8/17 Test  #8: integration_concurrency ..........   Passed    0.19 sec
+test 9
+      Start  9: integration_ack
+
+9: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "ack"
+9: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+9: Test timeout computed to be: 30
+9: {"test": "ack", "overlap": 3, "completed_actions": 40, "summary": {"run_id": "ack", "jobs": "10", "workers": "4", "seed": "42", "fault": "ack", "done": "10", "failed": "0", "unknown": "0", "duration_ms": "149.7577", "throughput": "66.7745", "mean_ms": "88.8353", "median_ms": "80.0262", "p95_ms": "149.5126", "p99_ms": "149.5126", "p95_ipc_ms": "7.7503", "jitter_ms": "11.7500", "p95_queue_ms": "95.5391", "deadline_ms": "200", "deadline_misses": "0", "retries": "1", "crc_rejects": "0"}}
+9: ack PASS
+ 9/17 Test  #9: integration_ack ..................   Passed    0.19 sec
+test 10
+      Start 10: integration_crc
+
+10: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "crc"
+10: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+10: Test timeout computed to be: 30
+10: {"test": "crc", "overlap": 3, "completed_actions": 40, "summary": {"run_id": "crc", "jobs": "10", "workers": "4", "seed": "42", "fault": "crc", "done": "10", "failed": "0", "unknown": "0", "duration_ms": "144.6431", "throughput": "69.1357", "mean_ms": "87.6203", "median_ms": "80.2928", "p95_ms": "144.2147", "p99_ms": "144.2147", "p95_ipc_ms": "7.6713", "jitter_ms": "11.7990", "p95_queue_ms": "93.6457", "deadline_ms": "200", "deadline_misses": "0", "retries": "1", "crc_rejects": "1"}}
+10: crc PASS
+10/17 Test #10: integration_crc ..................   Passed    0.19 sec
+test 11
+      Start 11: integration_slow
+
+11: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "slow"
+11: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+11: Test timeout computed to be: 30
+11: {"test": "slow", "overlap": 3, "completed_actions": 40, "summary": {"run_id": "slow", "jobs": "10", "workers": "4", "seed": "42", "fault": "slow", "done": "10", "failed": "0", "unknown": "0", "duration_ms": "600.1706", "throughput": "16.6619", "mean_ms": "334.6491", "median_ms": "305.9704", "p95_ms": "599.9073", "p99_ms": "599.9073", "p95_ipc_ms": "51.9486", "jitter_ms": "19.6639", "p95_queue_ms": "361.1678", "deadline_ms": "200", "deadline_misses": "7", "retries": "0", "crc_rejects": "0"}}
+11: slow PASS
+11/17 Test #11: integration_slow .................   Passed    0.80 sec
+test 12
+      Start 12: integration_crash
+
+12: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "crash"
+12: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+12: Test timeout computed to be: 30
+12: {"test": "crash", "overlap": 0, "completed_actions": 0, "summary": {"run_id": "crash", "jobs": "10", "workers": "4", "seed": "42", "fault": "crash", "done": "0", "failed": "10", "unknown": "2", "duration_ms": "2.4251", "throughput": "4123.5022", "mean_ms": "1.3356", "median_ms": "1.1014", "p95_ms": "2.2051", "p99_ms": "2.2051", "p95_ipc_ms": "0.0000", "jitter_ms": "0.0000", "p95_queue_ms": "1.1014", "deadline_ms": "200", "deadline_misses": "0", "retries": "0", "crc_rejects": "0"}}
+12: crash PASS
+12/17 Test #12: integration_crash ................   Passed    0.04 sec
+test 13
+      Start 13: integration_timeout
+
+13: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "timeout"
+13: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+13: Test timeout computed to be: 30
+13: {"test": "timeout", "overlap": 3, "completed_actions": 37, "summary": {"run_id": "timeout", "jobs": "10", "workers": "4", "seed": "42", "fault": "timeout", "done": "9", "failed": "1", "unknown": "1", "duration_ms": "243.6098", "throughput": "41.0493", "mean_ms": "97.1787", "median_ms": "80.5922", "p95_ms": "243.4171", "p99_ms": "243.4171", "p95_ipc_ms": "7.6520", "jitter_ms": "1.5464", "p95_queue_ms": "99.2490", "deadline_ms": "200", "deadline_misses": "1", "retries": "2", "crc_rejects": "0"}}
+13: timeout PASS
+13/17 Test #13: integration_timeout ..............   Passed    0.28 sec
+test 14
+      Start 14: integration_repeat
+
+14: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "repeat"
+14: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+14: Test timeout computed to be: 30
+14: {"test": "repeat", "overlap": 3, "completed_actions": 40, "summary": {"run_id": "none", "jobs": "10", "workers": "4", "seed": "42", "fault": "none", "done": "10", "failed": "0", "unknown": "0", "duration_ms": "145.5957", "throughput": "68.6833", "mean_ms": "83.5064", "median_ms": "78.0467", "p95_ms": "145.2451", "p99_ms": "145.2451", "p95_ipc_ms": "7.7644", "jitter_ms": "1.5521", "p95_queue_ms": "87.9550", "deadline_ms": "200", "deadline_misses": "0", "retries": "0", "crc_rejects": "0"}}
+14: repeat PASS
+14/17 Test #14: integration_repeat ...............   Passed    0.33 sec
+test 15
+      Start 15: integration_audit
+
+15: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "audit"
+15: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+15: Test timeout computed to be: 30
+15: {"test": "audit", "overlap": 3, "completed_actions": 40, "summary": {"run_id": "none", "jobs": "10", "workers": "4", "seed": "42", "fault": "none", "done": "10", "failed": "0", "unknown": "0", "duration_ms": "142.7206", "throughput": "70.0670", "mean_ms": "83.8277", "median_ms": "78.4598", "p95_ms": "142.4411", "p99_ms": "142.4411", "p95_ipc_ms": "7.8008", "jitter_ms": "1.5455", "p95_queue_ms": "92.8829", "deadline_ms": "200", "deadline_misses": "0", "retries": "0", "crc_rejects": "0"}}
+15: audit PASS
+15/17 Test #15: integration_audit ................   Passed    0.19 sec
+test 16
+      Start 16: integration_deadlock
+
+16: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py" "/workspace/scratch/2e8b99d1cd97/labline/build/labline" "deadlock"
+16: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+16: Test timeout computed to be: 30
+16: unsafe: both first locks held; externally killed after 1 s
+16: deadlock PASS
+16/17 Test #16: integration_deadlock .............   Passed    1.04 sec
+test 17
+      Start 17: simulator_input_safety
+
+17: Test command: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 "/workspace/scratch/2e8b99d1cd97/labline/tests/device_protocol.py" "/workspace/scratch/2e8b99d1cd97/labline/build/simulator_probe"
+17: Working Directory: /workspace/scratch/2e8b99d1cd97/labline/build
+17: Test timeout computed to be: 30
+17: corrupt request: no action; exclusivity NACK; in-flight and completed dedup; sequence collision NACK: PASS
+17/17 Test #17: simulator_input_safety ...........   Passed    0.04 sec
+
+100% tests passed out of 17
+
+Total Test time (real) =   3.30 sec

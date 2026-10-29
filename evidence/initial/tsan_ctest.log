@@ -1,0 +1,875 @@
+Test project /workspace/scratch/2e8b99d1cd97/labline/build-tsan
+      Start  1: unit_roundtrip
+ 1/17 Test  #1: unit_roundtrip ...................   Passed    0.01 sec
+      Start  2: unit_split_multiple
+ 2/17 Test  #2: unit_split_multiple ..............   Passed    0.01 sec
+      Start  3: unit_crc
+ 3/17 Test  #3: unit_crc .........................   Passed    0.01 sec
+      Start  4: unit_length
+ 4/17 Test  #4: unit_length ......................   Passed    0.01 sec
+      Start  5: unit_version
+ 5/17 Test  #5: unit_version .....................   Passed    0.01 sec
+      Start  6: unit_state
+ 6/17 Test  #6: unit_state .......................   Passed    0.01 sec
+      Start  7: unit_queue
+ 7/17 Test  #7: unit_queue .......................   Passed    0.01 sec
+      Start  8: integration_concurrency
+ 8/17 Test  #8: integration_concurrency ..........***Failed    0.24 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 109, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 59, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: none: accepted=10 DONE=10 FAILED=0 UNKNOWN(subset of FAILED)=0 retries=0 CRC rejects=0
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=196)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1eb80)
+
+  Mutex M0 (0x7ffd341f4b80) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=196)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1eb08)
+
+  Mutex M0 (0x7ffd341f4b08) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=196)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1eba8)
+
+  Mutex M0 (0x7ffd341f4ba8) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+ThreadSanitizer: reported 3 warnings
+
+
+      Start  9: integration_ack
+ 9/17 Test  #9: integration_ack ..................***Failed    0.24 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 109, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 59, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ack: accepted=10 DONE=10 FAILED=0 UNKNOWN(subset of FAILED)=0 retries=1 CRC rejects=0
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=206)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1ef90)
+
+  Mutex M0 (0x7ffe7a5f5f90) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=206)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1ef18)
+
+  Mutex M0 (0x7ffe7a5f5f18) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=206)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1efb8)
+
+  Mutex M0 (0x7ffe7a5f5fb8) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+ThreadSanitizer: reported 3 warnings
+
+
+      Start 10: integration_crc
+10/17 Test #10: integration_crc ..................***Failed    0.24 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 109, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 59, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: crc: accepted=10 DONE=10 FAILED=0 UNKNOWN(subset of FAILED)=0 retries=1 CRC rejects=1
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=216)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1e060)
+
+  Mutex M0 (0x7ffff74a8060) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=216)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1dfe8)
+
+  Mutex M0 (0x7ffff74a7fe8) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=216)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1e088)
+
+  Mutex M0 (0x7ffff74a8088) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+ThreadSanitizer: reported 3 warnings
+
+
+      Start 11: integration_slow
+11/17 Test #11: integration_slow .................***Failed    0.69 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 109, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 59, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: slow: accepted=10 DONE=10 FAILED=0 UNKNOWN(subset of FAILED)=0 retries=0 CRC rejects=0
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=226)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1f460)
+
+  Mutex M0 (0x7ffc40933460) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=226)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1f3e8)
+
+  Mutex M0 (0x7ffc409333e8) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=226)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1f488)
+
+  Mutex M0 (0x7ffc40933488) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+ThreadSanitizer: reported 3 warnings
+
+
+      Start 12: integration_crash
+12/17 Test #12: integration_crash ................   Passed    0.07 sec
+      Start 13: integration_timeout
+13/17 Test #13: integration_timeout ..............***Failed    0.34 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 109, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 59, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: timeout: accepted=10 DONE=9 FAILED=1 UNKNOWN(subset of FAILED)=1 retries=2 CRC rejects=0
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=246)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1ecc0)
+
+  Mutex M0 (0x7ffddf023cc0) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=246)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1ec48)
+
+  Mutex M0 (0x7ffddf023c48) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=246)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1ece8)
+
+  Mutex M0 (0x7ffddf023ce8) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+ThreadSanitizer: reported 3 warnings
+
+
+      Start 14: integration_repeat
+14/17 Test #14: integration_repeat ...............***Failed    0.25 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 109, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 59, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: none: accepted=10 DONE=10 FAILED=0 UNKNOWN(subset of FAILED)=0 retries=0 CRC rejects=0
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=256)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1e110)
+
+  Mutex M0 (0x7fffecd22110) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=256)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1e098)
+
+  Mutex M0 (0x7fffecd22098) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=256)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1e138)
+
+  Mutex M0 (0x7fffecd22138) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+ThreadSanitizer: reported 3 warnings
+
+
+      Start 15: integration_audit
+15/17 Test #15: integration_audit ................***Failed    0.24 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 109, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 59, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: none: accepted=10 DONE=10 FAILED=0 UNKNOWN(subset of FAILED)=0 retries=0 CRC rejects=0
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=266)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1eeb0)
+
+  Mutex M0 (0x7ffc16feeeb0) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=266)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1ee38)
+
+  Mutex M0 (0x7ffc16feee38) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+==================
+WARNING: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (pid=266)
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1eed8)
+
+  Mutex M0 (0x7ffc16feeed8) created at:
+    #0 pthread_mutex_unlock ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1375 (libtsan.so.2+0x57063) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 __gthread_mutex_unlock(pthread_mutex_t*) <null> (labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #2 std::timed_mutex::unlock() /usr/include/c++/13/mutex:281 (labline+0x4fbcf) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #3 std::unique_lock<std::timed_mutex>::unlock() <null> (labline+0x5340e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #4 std::unique_lock<std::timed_mutex>::~unique_lock() <null> (labline+0x51655) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #5 operator() /workspace/scratch/2e8b99d1cd97/labline/src/controller.cpp:108 (labline+0x4c683) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #6 __invoke_impl<void, labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (labline+0x4f70e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #7 __invoke<labline::run(const Config&)::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (labline+0x4f677) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #8 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (labline+0x4f5d8) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #9 operator() /usr/include/c++/13/bits/std_thread.h:299 (labline+0x4f57e) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #10 _M_run /usr/include/c++/13/bits/std_thread.h:244 (labline+0x4f534) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c)
+    #11 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+SUMMARY: ThreadSanitizer: unlock of an unlocked mutex (or by a wrong thread) (/workspace/scratch/2e8b99d1cd97/labline/build-tsan/labline+0x4fb10) (BuildId: 5a3ed2c2692d417356ed4241b473fe5f41f8430c) in __gthread_mutex_unlock(pthread_mutex_t*)
+==================
+ThreadSanitizer: reported 3 warnings
+
+
+      Start 16: integration_deadlock
+16/17 Test #16: integration_deadlock .............   Passed    1.05 sec
+      Start 17: simulator_input_safety
+17/17 Test #17: simulator_input_safety ...........   Passed    0.04 sec
+
+59% tests passed, 7 tests failed out of 17
+
+Total Test time (real) =   3.48 sec
+
+The following tests FAILED:
+	  8 - integration_concurrency (Failed)
+	  9 - integration_ack (Failed)
+	 10 - integration_crc (Failed)
+	 11 - integration_slow (Failed)
+	 13 - integration_timeout (Failed)
+	 14 - integration_repeat (Failed)
+	 15 - integration_audit (Failed)
+Errors while running CTest

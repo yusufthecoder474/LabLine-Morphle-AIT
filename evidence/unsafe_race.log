@@ -1,0 +1,73 @@
+==================
+WARNING: ThreadSanitizer: data race (pid=286)
+  Read of size 4 at 0x7ffcbc4ffdec by thread T2:
+    #0 operator() /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:5 (unsafe_race_demo+0x1368) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #1 __invoke_impl<void, main()::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (unsafe_race_demo+0x1a2f) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #2 __invoke<main()::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (unsafe_race_demo+0x19b6) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #3 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (unsafe_race_demo+0x1918) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #4 operator() /usr/include/c++/13/bits/std_thread.h:299 (unsafe_race_demo+0x18be) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #5 _M_run /usr/include/c++/13/bits/std_thread.h:244 (unsafe_race_demo+0x1874) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #6 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Previous write of size 4 at 0x7ffcbc4ffdec by thread T1:
+    #0 operator() /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:5 (unsafe_race_demo+0x1376) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #1 __invoke_impl<void, main()::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (unsafe_race_demo+0x1a2f) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #2 __invoke<main()::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (unsafe_race_demo+0x19b6) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #3 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (unsafe_race_demo+0x1918) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #4 operator() /usr/include/c++/13/bits/std_thread.h:299 (unsafe_race_demo+0x18be) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #5 _M_run /usr/include/c++/13/bits/std_thread.h:244 (unsafe_race_demo+0x1874) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #6 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1edec)
+
+  Thread T2 (tid=289, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1022 (libtsan.so.2+0x5ac1a) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) <null> (libstdc++.so.6+0xeceb0) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+    #2 main /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:6 (unsafe_race_demo+0x140a) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+
+  Thread T1 (tid=288, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1022 (libtsan.so.2+0x5ac1a) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) <null> (libstdc++.so.6+0xeceb0) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+    #2 main /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:6 (unsafe_race_demo+0x13f7) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+
+SUMMARY: ThreadSanitizer: data race /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:5 in operator()
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=286)
+  Write of size 4 at 0x7ffcbc4ffdec by thread T2:
+    #0 operator() /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:5 (unsafe_race_demo+0x1376) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #1 __invoke_impl<void, main()::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (unsafe_race_demo+0x1a2f) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #2 __invoke<main()::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (unsafe_race_demo+0x19b6) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #3 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (unsafe_race_demo+0x1918) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #4 operator() /usr/include/c++/13/bits/std_thread.h:299 (unsafe_race_demo+0x18be) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #5 _M_run /usr/include/c++/13/bits/std_thread.h:244 (unsafe_race_demo+0x1874) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #6 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Previous write of size 4 at 0x7ffcbc4ffdec by thread T1:
+    #0 operator() /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:5 (unsafe_race_demo+0x1376) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #1 __invoke_impl<void, main()::<lambda()> > /usr/include/c++/13/bits/invoke.h:61 (unsafe_race_demo+0x1a2f) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #2 __invoke<main()::<lambda()> > /usr/include/c++/13/bits/invoke.h:96 (unsafe_race_demo+0x19b6) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #3 _M_invoke<0> /usr/include/c++/13/bits/std_thread.h:292 (unsafe_race_demo+0x1918) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #4 operator() /usr/include/c++/13/bits/std_thread.h:299 (unsafe_race_demo+0x18be) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #5 _M_run /usr/include/c++/13/bits/std_thread.h:244 (unsafe_race_demo+0x1874) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+    #6 <null> <null> (libstdc++.so.6+0xecdb3) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+
+  Location is stack of main thread.
+
+  Location is global '<null>' at 0x000000000000 ([stack]+0x1edec)
+
+  Thread T2 (tid=289, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1022 (libtsan.so.2+0x5ac1a) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) <null> (libstdc++.so.6+0xeceb0) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+    #2 main /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:6 (unsafe_race_demo+0x140a) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+
+  Thread T1 (tid=288, running) created by main thread at:
+    #0 pthread_create ../../../../src/libsanitizer/tsan/tsan_interceptors_posix.cpp:1022 (libtsan.so.2+0x5ac1a) (BuildId: 2a13a7710e361d06f7babbea53065ca2be93f738)
+    #1 std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) <null> (libstdc++.so.6+0xeceb0) (BuildId: 753c6c8608b61d4e67be8f0c890e03e0aa046b8b)
+    #2 main /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:6 (unsafe_race_demo+0x13f7) (BuildId: 6e690278fade831776541d0258864287e71976d6)
+
+SUMMARY: ThreadSanitizer: data race /workspace/scratch/2e8b99d1cd97/labline/tests/unsafe_race_demo.cpp:5 in operator()
+==================
+ThreadSanitizer: reported 2 warnings

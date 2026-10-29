@@ -1,0 +1,233 @@
+Test project /workspace/scratch/2e8b99d1cd97/labline/build-asan
+      Start  1: unit_roundtrip
+ 1/17 Test  #1: unit_roundtrip ...................***Failed    0.00 sec
+==394==Can't open /proc/393/task for reading.
+==393==LeakSanitizer has encountered a fatal error.
+==393==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==393==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+      Start  2: unit_split_multiple
+ 2/17 Test  #2: unit_split_multiple ..............***Failed    0.00 sec
+==396==Can't open /proc/395/task for reading.
+==395==LeakSanitizer has encountered a fatal error.
+==395==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==395==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+      Start  3: unit_crc
+ 3/17 Test  #3: unit_crc .........................***Failed    0.00 sec
+==398==Can't open /proc/397/task for reading.
+==397==LeakSanitizer has encountered a fatal error.
+==397==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==397==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+      Start  4: unit_length
+ 4/17 Test  #4: unit_length ......................***Failed    0.00 sec
+==400==Can't open /proc/399/task for reading.
+==399==LeakSanitizer has encountered a fatal error.
+==399==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==399==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+      Start  5: unit_version
+ 5/17 Test  #5: unit_version .....................***Failed    0.00 sec
+==402==Can't open /proc/401/task for reading.
+==401==LeakSanitizer has encountered a fatal error.
+==401==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==401==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+      Start  6: unit_state
+ 6/17 Test  #6: unit_state .......................***Failed    0.00 sec
+==404==Can't open /proc/403/task for reading.
+==403==LeakSanitizer has encountered a fatal error.
+==403==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==403==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+      Start  7: unit_queue
+ 7/17 Test  #7: unit_queue .......................***Failed    0.01 sec
+==407==Can't open /proc/405/task for reading.
+==405==LeakSanitizer has encountered a fatal error.
+==405==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==405==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+      Start  8: integration_concurrency
+ 8/17 Test  #8: integration_concurrency ..........***Failed    0.21 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 60, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ==416==Can't open /proc/409/task for reading.
+==409==LeakSanitizer has encountered a fatal error.
+==409==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==409==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+
+      Start  9: integration_ack
+ 9/17 Test  #9: integration_ack ..................***Failed    0.20 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 60, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ==425==Can't open /proc/418/task for reading.
+==418==LeakSanitizer has encountered a fatal error.
+==418==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==418==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+
+      Start 10: integration_crc
+10/17 Test #10: integration_crc ..................***Failed    0.20 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 60, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ==434==Can't open /proc/427/task for reading.
+==427==LeakSanitizer has encountered a fatal error.
+==427==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==427==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+
+      Start 11: integration_slow
+11/17 Test #11: integration_slow .................***Failed    0.65 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 60, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ==443==Can't open /proc/436/task for reading.
+==436==LeakSanitizer has encountered a fatal error.
+==436==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==436==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+
+      Start 12: integration_crash
+12/17 Test #12: integration_crash ................***Failed    0.09 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 60, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ==452==Can't open /proc/445/task for reading.
+==445==LeakSanitizer has encountered a fatal error.
+==445==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==445==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+
+      Start 13: integration_timeout
+13/17 Test #13: integration_timeout ..............***Failed    0.29 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 60, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ==461==Can't open /proc/454/task for reading.
+==454==LeakSanitizer has encountered a fatal error.
+==454==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==454==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+
+      Start 14: integration_repeat
+14/17 Test #14: integration_repeat ...............***Failed    0.21 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 60, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ==470==Can't open /proc/463/task for reading.
+==463==LeakSanitizer has encountered a fatal error.
+==463==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==463==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+
+      Start 15: integration_audit
+15/17 Test #15: integration_audit ................***Failed    0.20 sec
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 60, in test
+    summary, actions = simulation(binary, folder, fault)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 21, in simulation
+    assert run.returncode == (2 if fault in ('crash', 'timeout') else 0), run.stdout + run.stderr
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ==479==Can't open /proc/472/task for reading.
+==472==LeakSanitizer has encountered a fatal error.
+==472==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==472==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+
+
+      Start 16: integration_deadlock
+16/17 Test #16: integration_deadlock .............***Failed    1.04 sec
+unsafe: both first locks held; externally killed after 1 s
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 110, in <module>
+    test(str(Path(sys.argv[1]).resolve()), sys.argv[2], Path(directory))
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/integration.py", line 57, in test
+    assert safe.returncode == 0 and 'safe completed' in safe.stdout
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+      Start 17: simulator_input_safety
+17/17 Test #17: simulator_input_safety ...........***Failed    0.04 sec
+==490==Can't open /proc/489/task for reading.
+==489==LeakSanitizer has encountered a fatal error.
+==489==HINT: For debugging, try setting environment variable LSAN_OPTIONS=verbosity=1:log_threads=1
+==489==HINT: LeakSanitizer does not work under ptrace (strace, gdb, etc)
+Traceback (most recent call last):
+  File "/workspace/scratch/2e8b99d1cd97/labline/tests/device_protocol.py", line 44, in <module>
+    assert process.wait(timeout=3) == 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+
+0% tests passed, 17 tests failed out of 17
+
+Total Test time (real) =   3.18 sec
+
+The following tests FAILED:
+	  1 - unit_roundtrip (Failed)
+	  2 - unit_split_multiple (Failed)
+	  3 - unit_crc (Failed)
+	  4 - unit_length (Failed)
+	  5 - unit_version (Failed)
+	  6 - unit_state (Failed)
+	  7 - unit_queue (Failed)
+	  8 - integration_concurrency (Failed)
+	  9 - integration_ack (Failed)
+	 10 - integration_crc (Failed)
+	 11 - integration_slow (Failed)
+	 12 - integration_crash (Failed)
+	 13 - integration_timeout (Failed)
+	 14 - integration_repeat (Failed)
+	 15 - integration_audit (Failed)
+	 16 - integration_deadlock (Failed)
+	 17 - simulator_input_safety (Failed)
+Errors while running CTest

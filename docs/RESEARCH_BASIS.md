@@ -1,0 +1,16 @@
+# Research basis and claim boundaries
+
+Primary-source records checked on 29 October 2026. This is a focused reading of four supplied sources, not an exhaustive review of all recent research. No paper code or dataset was copied.
+
+| Source and verified metadata | Limited finding | Design implication and limit |
+|---|---|---|
+| Gretchen E. Galliano. *Process Variation Detection using Missing Data in a Multihospital Community Practice Anatomic Pathology Laboratory*. Journal of Pathology Informatics, 10:25, 1 August 2019. DOI 10.4103/jpi.jpi_18_19. [PubMed primary abstract](https://pubmed.ncbi.nlm.nih.gov/31463161/), [PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC6686573/) | Abstract confirms 7,218/70,085 cases (10.3%) missing process timestamps. In some cases the expected events had occurred. PMC initially returned an access challenge; the PubMed abstract supplied verification. | Missing records must be flagged as missing evidence, not proof that a physical step was skipped. LabLine only audits its synthetic records. |
+| Lukas Dust, Emil Persson, Mikael Ekström, Saad Mubeen, Cristina Seceleanu and Rong Gu. *Experimental Evaluation of Callback Behavior in ROS 2 Executors*. 28th IEEE ETFA, September 2023. [Institutional author record](https://www.es.mdu.se/publications/6796-Experimental_Evaluation_of_Callback_Behavior_in_ROS_2_Executors) | Author abstract describes callback order, timer blocking and timing effects across executor versions. | Measure queue and response delays under contention. No ROS 2 implementation or replication of this paper. |
+| Md. Mehedi Hasan, Rafid Mostafiz, Bikash Kumar Paul, Md. Abir Hossain and Ziaur Rahman. *ReDAG-RT: Global Rate-Priority Scheduling for Real-Time Multi-DAG Execution in ROS 2*. Submitted 18 March 2026. [arXiv:2603.18238](https://arxiv.org/abs/2603.18238) | Preprint abstract addresses interference and tail latency in concurrent DAG workloads. Peer review was not established by this record. | Motivates observing p95/p99. No rate-priority scheduler, novelty claim or reuse of its improvement percentages. |
+| Neil Biswas, Holly Berg and Sanjay K. Shukla. *Digital pathology: Barriers to transitioning to the digital age*. DIGITAL HEALTH 12, 12 February 2026. DOI 10.1177/20552076261418364. [PubMed](https://pubmed.ncbi.nlm.nih.gov/41696075/), [full text](https://pmc.ncbi.nlm.nih.gov/articles/PMC12901937/) | Published review; full text records receipt 12 October 2025 and acceptance 9 January 2026. Discusses workflow, financial and regulatory barriers. | Broader operational motivation only. No evidence of LabLine improving adoption, patient safety or costs. |
+
+## Engineering question
+
+For a simplified lab-station controller, what completion, fault-accounting and response-time behavior do ordered locking, bounded command retries and traceable events produce under shared-device contention?
+
+The comparison is safe serial execution versus safe four-worker execution. It does not isolate the causal effect of each design choice, compare against a real laboratory, or prove scientific novelty. The deadlock experiment separately contrasts opposite ordering with consistent ordering. The deliberately corrupted audit copies evaluate detection of missing records, not the frequency of real-world errors. No barcode-error reduction statistic is claimed.

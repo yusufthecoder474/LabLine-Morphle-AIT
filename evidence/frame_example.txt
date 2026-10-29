@@ -1,0 +1,3 @@
+Independent Python struct/zlib encoder
+Sequence 0x01020304, device 2, stain operation 1, job 1
+a5 01 00 04 01 02 03 04 02 01 00 00 00 01 de 60 34 e0 5a
