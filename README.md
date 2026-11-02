@@ -93,6 +93,20 @@ These commands assume the ZIP keeps its supplied filename and is in the default 
 
 View the included report with `cat evidence/REPORT.md`. Run `explorer.exe .` from Ubuntu to open this directory in Windows; open Markdown in VS Code and CSV in Excel. The experiment folder contains each run's `events.csv`, `simulator.csv`, `jobs.csv`, `summary.csv`, audit result and command metadata.
 
+## Web dashboard and visual demonstrations
+
+The **guest-access LabLine Control Center** runs the real C++17 simulator on Linux, displays individual job outcomes and audit evidence, compares previously measured serial/concurrent runs, and invokes the existing CTest verification suite. The interface is local-only and uses synthetic device models.
+
+[**See four annotated screenshots and their engineering explanations**](docs/WEB_DASHBOARD.md)
+
+![LabLine live dashboard displaying 10 completed synthetic jobs and audit-verified results](docs/screenshots/01-live-simulation-overview.png)
+
+To launch the dashboard locally:
+
+```bash
+bash web_demo/start.sh
+```
+
 ## Small demonstrations
 
 ```bash

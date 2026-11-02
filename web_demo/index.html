@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1120" />
+  <meta name="description" content="LabLine guest demo: run a real C++17 Linux IPC simulator, inject faults and inspect verified results." />
+  <title>LabLine — Control Center</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="rail" aria-label="LabLine navigation">
+      <div class="brandmark">L<span>·</span></div>
+      <a href="#overview" class="rail-item active" aria-label="Overview" title="Overview">◫</a>
+      <a href="#simulation" class="rail-item" aria-label="Simulation" title="Simulation">▷</a>
+      <a href="#evidence" class="rail-item" aria-label="Evidence" title="Evidence">▤</a>
+      <a href="#testing" class="rail-item" aria-label="Testing" title="Testing">◇</a>
+      <div class="rail-foot">C++</div>
+    </aside>
+
+    <main class="main" id="overview">
+      <header class="topbar">
+        <div class="crumb"><strong>LabLine</strong><span>/</span> Control Center <span class="version">v1.0</span></div>
+        <div class="top-actions"><span class="status" id="connectionStatus"><i></i> Checking local engine</span><span class="guest">Guest Demo · No sign-in</span></div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-top"><span class="eyebrow">C++17 · LINUX IPC · CONCURRENT DEVICE CONTROL</span><span class="hero-tag">Synthetic lab environment</span></div>
+        <h1>Every command has a result.<br><em>Every result has evidence.</em></h1>
+        <p>Run the real LabLine controller, explore failure scenarios, and inspect audit trails — all through one local dashboard.</p>
+        <div class="hero-path" aria-label="Architecture overview">
+          <span>Job queue</span><b>→</b><span>1 / 4 workers</span><b>→</b><span>Unix IPC</span><b>→</b><span>Device simulator</span><b>→</b><span>Audit records</span>
+        </div>
+      </section>
+
+      <section class="kpis" aria-label="Last run metrics">
+        <div class="kpi"><div class="kpi-icon teal">✓</div><div class="kpi-label">Completed jobs <span>Last run</span></div><div class="kpi-number" id="kpiDone">—</div><div class="kpi-sub" id="kpiDoneSub">Run a simulation to begin</div></div>
+        <div class="kpi"><div class="kpi-icon blue">↗</div><div class="kpi-label">Throughput <span>jobs / second</span></div><div class="kpi-number" id="kpiThroughput">—</div><div class="kpi-sub">Measured by C++ controller</div></div>
+        <div class="kpi"><div class="kpi-icon violet">⌁</div><div class="kpi-label">Job latency p95 <span>milliseconds</span></div><div class="kpi-number" id="kpiP95">—</div><div class="kpi-sub">Nearest-rank percentile</div></div>
+        <div class="kpi"><div class="kpi-icon amber">↻</div><div class="kpi-label">Retries <span>last run</span></div><div class="kpi-number" id="kpiRetries">—</div><div class="kpi-sub" id="kpiRetrySub">Lost reply / CRC scenarios</div></div>
+      </section>
+
+      <section class="workspace" id="simulation">
+        <div class="panel controls">
+          <div class="panel-head"><div><div class="section-kicker">01 / CONTROL</div><h2>Run a simulation</h2><p>Real C++ execution. No mock results.</p></div><span class="icon-box">▷</span></div>
+          <form id="runForm">
+            <label class="field-label" for="jobs">Workload size <small>Synthetic jobs</small></label>
+            <div class="options" role="group" aria-label="Workload size"><label><input type="radio" name="jobs" value="10" checked /><span>10 jobs</span></label><label><input type="radio" name="jobs" value="50" /><span>50 jobs</span></label><label><input type="radio" name="jobs" value="100" /><span>100 jobs</span></label></div>
+            <label class="field-label" for="workers">Worker concurrency <small>Comparison modes</small></label>
+            <div class="options workers" role="group" aria-label="Worker concurrency"><label><input type="radio" name="workers" value="1" /><span>1 worker <small>Serial</small></span></label><label><input type="radio" name="workers" value="4" checked /><span>4 workers <small>Concurrent</small></span></label></div>
+            <label class="field-label" for="fault">Fault injection <small>Choose exactly one</small></label>
+            <select name="fault" id="fault"><option value="none">Normal operation</option><option value="ack">Lost acknowledgment (retry)</option><option value="crc">Corrupt CRC frame (reject + retry)</option><option value="slow">Slow device (deadline misses)</option><option value="timeout">Operation timeout (unknown state)</option><option value="crash">Simulator crash (failed jobs)</option></select>
+            <div class="hint">Faults are injected into software-only synthetic devices. A failed run may be an expected demonstration outcome.</div>
+            <button class="btn primary" id="runButton" type="submit"><span>▶</span> Execute on Linux <span class="btn-chevron">↗</span></button>
+          </form>
+          <div class="tiny-info"><span>◉ Local subprocess execution</span><span>● No hardware required</span></div>
+        </div>
+        <div class="panel output">
+          <div class="panel-head"><div><div class="section-kicker">02 / OBSERVE</div><h2>Execution monitor</h2><p>Latest run and trace events</p></div><span class="tag" id="runBadge">Not started</span></div>
+          <div class="console" role="log" aria-live="polite">
+            <div class="console-top"><span><i></i> labline / run output</span><span id="runIdLabel">Awaiting run</span></div>
+            <pre id="consoleText">$ ./build/labline --jobs 10 --workers 4
+
+Ready to accept your first simulation.
+Select a workload and click “Execute on Linux”.</pre>
+          </div>
+          <div class="result-strip" id="resultStrip">
+            <div><span>Done</span><strong id="stripDone">—</strong></div><div><span>Failed</span><strong id="stripFailed">—</strong></div><div><span>Unknown*</span><strong id="stripUnknown">—</strong></div><div><span>CRC rejects</span><strong id="stripCrc">—</strong></div>
+          </div>
+          <div class="audit-row"><span class="audit-dot" id="auditDot"></span><div><strong id="auditTitle">Audit not yet run</strong><small id="auditDescription">Independent CSV consistency checker runs after each simulation.</small></div></div>
+          <p class="fineprint">*UNKNOWN is a subset of FAILED, not an additional job count.</p>
+        </div>
+      </section>
+
+      <section class="lower-grid" id="evidence">
+        <div class="panel history">
+          <div class="panel-head"><div><div class="section-kicker">03 / TRACE</div><h2>Job outcomes</h2><p>Parsed from jobs.csv produced by LabLine</p></div><span class="tag neutral" id="jobCount">0 jobs</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Job</th><th>State</th><th>Queue wait</th><th>Total time</th></tr></thead><tbody id="jobRows"><tr><td colspan="4" class="empty">No jobs yet — run a simulation.</td></tr></tbody></table></div>
+          <div class="table-note" id="jobsNote">Individual job timings come from the real controller output.</div>
+          <details class="details"><summary>Inspect last 30 IPC / state events</summary><div class="event-list" id="eventRows">No trace events yet.</div></details>
+        </div>
+        <div class="panel benchmark">
+          <div class="panel-head"><div><div class="section-kicker">04 / EVIDENCE</div><h2>Concurrency comparison</h2><p>Published 2 Nov 2026 synthetic benchmark</p></div><span class="icon-box">↗</span></div>
+          <div id="benchRows" class="benchmark-rows"><div class="empty">Loading verified report...</div></div>
+          <div class="bench-bottom" id="benchSummary">Three paired repetitions per configuration. Not live metrics.</div>
+          <a class="plain-link" href="https://github.com/yusufthecoder474/LabLine-Morphle-AIT/blob/main/evidence/REPORT_2026-11-02.md" target="_blank" rel="noreferrer">Read source experiment report ↗</a>
+        </div>
+      </section>
+
+      <section class="panel testing" id="testing">
+        <div class="panel-head"><div><div class="section-kicker">05 / VERIFY</div><h2>Automated verification</h2><p>Run existing CTest cases and read the actual output</p></div><button type="button" class="btn secondary" id="testButton">◇ Run test suite</button></div>
+        <div class="testing-body"><div class="testing-state"><span class="test-symbol" id="testSymbol">◇</span><div><div class="test-head" id="testHeading">Ready to verify</div><div class="test-desc" id="testDescription">17 CTest cases are defined by the project. Click to execute them locally.</div></div></div><pre class="test-log" id="testLog">Test output will appear here after execution.</pre></div>
+      </section>
+
+      <footer><span>LabLine · Local Guest Dashboard · Built around the existing C++17 simulator</span><span>Software simulation only · Not connected to real laboratory devices</span></footer>
+    </main>
+  </div>
+</body>
+</html>
